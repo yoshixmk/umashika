@@ -1,11 +1,11 @@
 defmodule Primality do
   def eratosthenes(n) do
-    sieve = Enum.map(2..5, fn(x) -> x end)
+    sieve = Enum.map(2..n, fn(x) -> x end)
     result = []
     eratosthenes(n, sieve, result)
   end
 
-  defp eratosthenes(n, sieve, result) do
+  def eratosthenes(n, sieve, result) do
     if Enum.at(sieve, 0) <= :math.sqrt(n) do
       [head|sieve] = sieve
       result = result ++ [head]
