@@ -1,24 +1,21 @@
-defmodule Prime do
-  def isPrime(num) do
-        if num==1 || rem(num, 2)==0 do
-            false
-        else
-            x = makeList(trunc(:math.sqrt(num)), [])
-            sieve(x, num)
-        end
+defmodule Primality do
+  def eratosthenes(n) do
+    sieve = for x <- 2..n, do: x
+    result = []
+    eratosthenes(n, sieve, result)
+  end
+
+  defp eratosthenes(n, sieve, result) do
+    if Enum.at(sieve, 0) <= :math.sqrt(n) do
+      [head|sieve] = sieve
+      result = result ++ [head]
+      sieve = Enum.filter(sieve, fn x -> rem(x, Enum.at(result, -1)) != 0 end)
+      eratosthenes(n, sieve, result)
+    else
+      result ++ sieve
     end
-    def sieve([h|t], num) do
-        if rem(num,h)==0 do false
-        else sieve(t, num)
-        end
-    end
-    def sieve([], _) do true
-    end
-    def makeList(num, result) do
-        if num==2 do result
-        else makeList(num-1, [num|result])
-        end
-    end
+  end
 end
 
-Enum.each((1..100), fn x -> IO.write(Prime.isPrime(x)) end)
+Primality.eratosthenes(1000) |> Enum.each(fn(x) -> Integer.to_string(x)<>" " |>  IO.write end)
+IO.puts ""
