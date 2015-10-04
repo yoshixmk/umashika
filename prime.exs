@@ -1,6 +1,6 @@
 defmodule Primality do
   def eratosthenes(n) do
-    sieve = for x <- 2..n, do: x
+    sieve = Enum.map(2..5, fn(x) -> x end)
     result = []
     eratosthenes(n, sieve, result)
   end
