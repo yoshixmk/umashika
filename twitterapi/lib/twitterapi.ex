@@ -1,5 +1,5 @@
 defmodule Twitter do
-  def search do
+  def search() do
     ExTwitter.search("elixir-lang", [count: 5]) |>
     Enum.map(fn(tweet) -> tweet.text end) |>
     Enum.join("\n-----\n") |>
@@ -15,4 +15,3 @@ defmodule Example do
   end
 
 end
-
