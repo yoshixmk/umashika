@@ -17,14 +17,32 @@ brew install deno
 $ deno run --allow-net index.tsx
 ```
 
-Server is going to listen : `http:localhost:3000`
+Server is going to listen : `http://localhost:3000`
 
 ### With [oak](https://deno.land/x/oak)
 ```Shell
 $ deno run --allow-net --allow-write oak.tsx
 ```
 
-Server is going to listen: `http:localhost:4000`
+Server is going to listen: `http://localhost:4000`
+
+### With [transport](https://github.com/yoshixmk/transport)
+```Shell
+$ deno run --allow-net websockets/server.ts
+```
+If you send the following message using `client.ts`, a response will be returned.
+```Shell
+$ deno run --allow-net websockets/client.ts
+```
+```json:response
+{"route": "UmaShikaRole_Response", "data": "uma"}
+```
+
+If you want to use your favorite websocket client please request below.  
+Server is going to listen: `ws://localhost:8080`  
+```json:request
+{"route":"UmaShikaRole_Request","data":"Please tell me role."}
+```
 
 ## Draft rules
 
