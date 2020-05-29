@@ -44,7 +44,7 @@ transport.on("connection", (socket: Socket) => {
     socket.emit("RES_TEST", "response");
   });
 
-  // {"route":"join","data": {"username": "ueki"}}
+  // {"route":"join","data": {"username": "yoshixmk"}}
   socket.on("join", (user: User) => {
     console.log(socket.id);
     console.log("join: " + user.username);
@@ -52,7 +52,7 @@ transport.on("connection", (socket: Socket) => {
     socket.emit("join_done", "ok");
   });
 
-  // {"route":"leave","data": {"username": "ueki"}}
+  // {"route":"leave","data": {"username": "yoshixmk"}}
   socket.on("leave", (data: string) => {
     console.log(socket.id);
     users.delete(socket.id);

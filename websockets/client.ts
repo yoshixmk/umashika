@@ -13,3 +13,7 @@ transport.on("UmaShikaRole_Response", (data: string) => {
   console.log(data);
 });
 transport.emit("UmaShikaRole_Request", "Please tell me role.");
+
+export function send() {
+  transport.emit("join", '{"username": "yoshixmk"}');
+}
