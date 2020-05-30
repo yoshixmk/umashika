@@ -1,6 +1,6 @@
-import baseServer from "https://raw.githubusercontent.com/asos-craigmorten/deno-react-base-server/master/mod.tsx";
+import baseServer from "./mod.tsx";
 
 baseServer({
-  appModulePath: "https://raw.githubusercontent.com/yoshixmk/umashika/feature/deno/websockets/app.tsx",
-  port: 3000,
+  appModulePath: "./websockets/app.tsx",
+  port: 5000,
 });

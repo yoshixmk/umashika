@@ -1,4 +1,4 @@
-import { React } from "../dep.ts";
+import { React } from "https://raw.githubusercontent.com/asos-craigmorten/deno-react-base-server/master/dep.ts";
 
 declare global {
   namespace JSX {
