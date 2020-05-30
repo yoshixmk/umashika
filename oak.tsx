@@ -15,8 +15,8 @@ app.use((ctx) => {
         <title>servest</title>
       </head>
       <body>Hello Oak!</body>
-    </html>
-  )
+    </html>,
+  );
 });
 
 await app.listen({ port: 4000 });

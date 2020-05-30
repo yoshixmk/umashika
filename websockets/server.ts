@@ -1,7 +1,7 @@
-import {  Socket } from "https://raw.githubusercontent.com/yoshixmk/transport/master/mod.ts";
+import { Socket } from "https://raw.githubusercontent.com/yoshixmk/transport/master/mod.ts";
 import { serve } from "https://deno.land/std/http/server.ts";
 import {
-  acceptWebSocket
+  acceptWebSocket,
 } from "https://deno.land/std/ws/mod.ts";
 
 export class Transport {
@@ -32,8 +32,8 @@ export class Transport {
 const transport = new Transport();
 
 type User = {
-  username: string
-}
+  username: string;
+};
 
 const users = new Map<string, User>();
 
@@ -67,19 +67,19 @@ transport.on("connection", (socket: Socket) => {
   });
 
   type Message = {
-    text: string,
-    openRange?: string
-  }
+    text: string;
+    openRange?: string;
+  };
   type UserMessage = {
-    user: User,
-    message: Message
-  }
+    user: User;
+    message: Message;
+  };
   // {"route":"chat","data": {"text": "message"}}
   socket.on("chat", (message: Message) => {
     console.log(socket.id);
 
     for (const user of users.values()) {
-      const userMessage = {user, message};
+      const userMessage = { user, message };
       socket.emit("chat_broad", userMessage);
     }
   });
@@ -89,5 +89,4 @@ transport.on("connection", (socket: Socket) => {
     console.log(data);
     socket.emit("UmaShikaRole_Response", "uma");
   });
-
 });
