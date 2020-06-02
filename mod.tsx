@@ -1,14 +1,43 @@
 import {
+  Socket,
+  serve,
+  acceptWebSocket,
   opine,
-  React,
   ReactDOMServer,
-  Request,
-  Response,
   NextFunction,
-} from "https://raw.githubusercontent.com/asos-craigmorten/deno-react-base-server/master/dep.ts";
+  Response,
+  Request,
+  React
+} from "./deps.ts";
+
+// websocket server
+export class Transport {
+  private sockets: Array<Socket>;
+  private port: number;
+  constructor(port: number = 8080) {
+    this.sockets = [];
+    this.port = port;
+  }
+  public async on(route: string, cb: Function) {
+    if (route === "connection") {
+      for await (const req of serve({ port: this.port })) {
+        const { conn, r: bufReader, w: bufWriter, headers } = req;
+        const sock = await acceptWebSocket({
+          conn,
+          bufReader,
+          bufWriter,
+          headers,
+        });
+        const socket = new Socket(sock);
+        this.sockets.push(socket);
+        cb(socket);
+      }
+    }
+  }
+}
 
 const browserBundlePath = "/browser.js";
-
+// react server
 const baseServer = async ({
   appModulePath,
   port = 8080,
@@ -28,16 +57,6 @@ const baseServer = async ({
       (ReactDOMServer as any).renderToString(<App />)
     }</body></html>`;
 
-  // Note that you wouldn't normally need to specify types for `req`, `res` and `next`.
-  // Deno v1.0.1 introduced a bug where it dropped support for `.tsx` files resulting in
-  // breaking typescript errors.
-  //
-  // This should be fixed in Deno v1.0.3.
-  //
-  // REF:
-  // - https://github.com/denoland/deno/issues/5776
-  // - https://github.com/denoland/deno/issues/5772
-  // - https://github.com/denoland/deno/pull/5785
   app.use(
     browserBundlePath,
     (req: Request, res: Response, next: NextFunction) => {
