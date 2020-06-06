@@ -11,13 +11,13 @@ export interface IVersion<T extends IVersion<T>> {
   eq(other: T): boolean;
 }
 
-class Semver implements IVersion<Semver> {
+export class Semver implements IVersion<Semver> {
   private mager: number;
-  private minar: number;
+  private minor: number;
   private patch: number;
   private constructor(mager: number, minor: number, patch: number) {
     this.mager = mager;
-    this.minar = minor;
+    this.minor = minor;
     this.patch = patch;
   }
   public static ofString(str: string): Semver {
@@ -36,7 +36,7 @@ class Semver implements IVersion<Semver> {
     if (this.mager > other.mager) {
       return true;
     }
-    if (this.minar > other.minar) {
+    if (this.minor > other.minor) {
       return true;
     }
     return this.patch > other.patch;
@@ -51,7 +51,7 @@ class Semver implements IVersion<Semver> {
     if (this.mager < other.mager) {
       return true;
     }
-    if (this.minar < other.minar) {
+    if (this.minor < other.minor) {
       return true;
     }
     return this.patch < other.patch;
@@ -63,6 +63,8 @@ class Semver implements IVersion<Semver> {
     return this.eq(other);
   }
   eq(other: Semver): boolean {
-    return this == other;
+    return this.mager == other.mager &&
+      this.minor == other.minor &&
+      this.patch == other.patch;
   }
 }
