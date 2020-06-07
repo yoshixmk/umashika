@@ -1,7 +1,7 @@
 import {
   assert,
   assertEquals
-} from "https://deno.land/std/testing/asserts.ts";
+} from "https://deno.land/std@/testing/asserts.ts";
 import { Semver } from "./semantic-versioning.ts";
 
 Deno.test("gt より大きい時はtrueを返す", () => {
