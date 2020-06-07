@@ -1,6 +1,6 @@
 import {
   assert,
-  assertEquals
+  assertEquals,
 } from "https://deno.land/std@/testing/asserts.ts";
 import { Semver } from "./semantic-versioning.ts";
 
