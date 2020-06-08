@@ -7,7 +7,7 @@ import {
   NextFunction,
   Response,
   Request,
-  React
+  React,
 } from "./deps.ts";
 
 // websocket server
