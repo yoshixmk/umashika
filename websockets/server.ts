@@ -2,7 +2,7 @@ import { Socket } from "https://raw.githubusercontent.com/yoshixmk/transport/mas
 import { serve } from "https://deno.land/std/http/server.ts";
 import {
   acceptWebSocket,
-} from "https://deno.land/std/ws/mod.ts";
+} from "https://deno.land/std@/ws/mod.ts";
 
 export class Transport {
   private sockets: Array<Socket>;

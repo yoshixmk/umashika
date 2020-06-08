@@ -2,7 +2,7 @@ import {
   assert,
   assertEquals,
 } from "https://deno.land/std@/testing/asserts.ts";
-import { Semver } from "./semantic-versioning.ts";
+import { Semver } from "./semantic_versioning.ts";
 
 Deno.test("gt より大きい時はtrueを返す", () => {
   const semver1 = Semver.ofString("1.2.3");
