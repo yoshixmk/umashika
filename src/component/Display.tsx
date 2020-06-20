@@ -1,6 +1,6 @@
-import React, { Component, ReactNode } from 'react';
+import React, { Component, ReactNode } from "react";
 
-import { Props } from '../container/Display';
+import { Props } from "../container/Display";
 
 type State = Readonly<{}>;
 

@@ -1,7 +1,7 @@
-import { Action } from 'redux';
+import { Action } from "redux";
 
-export const TYPED = '@@Umashika/Typed' as const;
-export const OTHER = '@@Umashika/Other' as const;
+export const TYPED = "@@Umashika/Typed" as const;
+export const OTHER = "@@Umashika/Other" as const;
 
 export interface TypeAction extends Action<string> {
   readonly type: typeof TYPED;
@@ -15,16 +15,16 @@ export interface OtherAction extends Action<string> {
 export const typing: (input: string) => TypeAction = (input: string) => {
   return {
     type: TYPED,
-    text: input
+    text: input,
   };
 };
 
 export const other: () => OtherAction = () => {
   return {
-    type: OTHER
+    type: OTHER,
   };
 };
 
 export type PescatriceAction =
-| TypeAction
-| OtherAction;
+  | TypeAction
+  | OtherAction;

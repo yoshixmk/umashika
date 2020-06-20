@@ -1,21 +1,24 @@
-import { combineReducers, Reducer } from 'redux';
+import { combineReducers, Reducer } from "redux";
 
-import { PescatriceAction, TYPED } from './Action';
-import { State } from './State';
+import { PescatriceAction, TYPED } from "./Action";
+import { State } from "./State";
 
 export type Text = Readonly<{
   typing: string;
 }>;
 
 const initialState: Text = {
-  typing: ''
+  typing: "",
 };
 
-export const text: Reducer<Text, PescatriceAction> = (state: Text = initialState, action: PescatriceAction) => {
+export const text: Reducer<Text, PescatriceAction> = (
+  state: Text = initialState,
+  action: PescatriceAction,
+) => {
   switch (action.type) {
     case TYPED: {
       return {
-        typing: action.text
+        typing: action.text,
       };
     }
     default: {
@@ -24,6 +27,9 @@ export const text: Reducer<Text, PescatriceAction> = (state: Text = initialState
   }
 };
 
-export const reducer: Reducer<State, PescatriceAction> = combineReducers<State, PescatriceAction>({
-  text
+export const reducer: Reducer<State, PescatriceAction> = combineReducers<
+  State,
+  PescatriceAction
+>({
+  text,
 });

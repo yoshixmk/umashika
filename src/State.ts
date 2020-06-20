@@ -1,4 +1,4 @@
-import { Text } from './Reducer';
+import { Text } from "./Reducer";
 
 export type State = Readonly<{
   text: Text;
