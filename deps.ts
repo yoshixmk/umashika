@@ -11,3 +11,4 @@ export {
   Response,
   NextFunction,
 } from "https://raw.githubusercontent.com/asos-craigmorten/deno-react-base-server/master/dep.ts";
+export { TransportClient } from "https://github.com/SASNOVACAT08/transport/raw/master/mod.ts";

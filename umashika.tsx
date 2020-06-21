@@ -1,11 +1,8 @@
-import baseServer from "./mod.tsx";
+import { startServest } from "./servest.tsx";
 import { websocketServer } from "./websockets/server.ts";
 
 // start react server for websocket frontend
-baseServer({
-  appModulePath: "./websockets/app.tsx",
-  port: 5000,
-});
+startServest();
 
 // start websocket server
 websocketServer();

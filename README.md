@@ -3,7 +3,7 @@
 ## Deno Instllation
 
 ```Shell
-$ curl -fsSL https://deno.land/x/install/install.sh | sh -s v1.0.0 
+$ curl -fsSL https://deno.land/x/install/install.sh | sh -s v1.1.1
 ```
 
 ### for Mac user
@@ -12,24 +12,13 @@ $ curl -fsSL https://deno.land/x/install/install.sh | sh -s v1.0.0
 brew install deno
 ```
 
-### With [servest](https://github.com/keroxp/servest)
+### Umashika With [servest](https://github.com/keroxp/servest) and [transport](https://github.com/yoshixmk/transport)
 ```Shell
-$ deno run --allow-net index.tsx
+$ deno run --allow-net umashika.tsx
 ```
 
-Server is going to listen : `http://localhost:3000`
+Server is going to listen : `http://localhost:3000` and `ws://localhost:8080`
 
-### With [oak](https://deno.land/x/oak)
-```Shell
-$ deno run --allow-net --allow-write oak.tsx
-```
-
-Server is going to listen: `http://localhost:4000`
-
-### With [transport](https://github.com/yoshixmk/transport)
-```Shell
-$ deno run --allow-net websockets/server.ts
-```
 If you send the following message using `client.ts`, a response will be returned.
 ```Shell
 $ deno run --allow-net websockets/client.ts
