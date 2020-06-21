@@ -12,68 +12,68 @@ type Supplier<R> = () => R;
 type UnaryFunction<E, R> = (err: E) => R;
 
 class OperatorRepository {
-  static case(dow: DayOfWeek, otherDow: DayOfWeek, fn: () => void): Case {
+  static case<T>(dow: T, otherDow: T, fn: () => void): Case<T> {
     if (dow == otherDow) fn();
     return new Case(dow);
   }
-  static default(fn: () => void): Default {
+  static default<T>(fn: () => void): Default<T> {
     fn();
     return new Default();
   }
-  static sw(dow: DayOfWeek): Switch {
-    return new Switch(dow);
+  static sw<T>(dow: T): Switch<T> {
+    return new Switch<T>(dow);
   }
   static recover(fn: (e: Error) => void, e?: Error): Recover {
     return new Recover(e);
   }
 }
 
-interface NextOperator {
-  dow: DayOfWeek;
+interface NextOperator<T> {
+  dow: T;
 }
 
-interface CaseOperator extends NextOperator {
-  case(dow: DayOfWeek, force: Boolean, fn: () => void): Case;
+interface CaseOperator<T> extends NextOperator<T> {
+  case(dow: T, force: Boolean, fn: () => void): Case<T>;
 }
 
-interface DefaultOperator extends NextOperator {
-  default(fn: () => void): Default;
+interface DefaultOperator<T> extends NextOperator<T> {
+  default(fn: () => void): Default<T>;
 }
 
-interface SwitchOperater extends NextOperator {
-  sw(): Switch;
+interface SwitchOperater<T> extends NextOperator<T> {
+  sw(): Switch<T>;
 }
 
-interface RecoverOperator extends NextOperator {
+interface RecoverOperator<T> extends NextOperator<T> {
   recover(fn: (e: Error) => {}): Recover;
 }
 
-class Default implements RecoverOperator {
-  dow!: DayOfWeek;
+class Default<T> implements RecoverOperator<T> {
+  dow!: T;
   recover(fn: (e: Error) => void): Recover {
     return OperatorRepository.recover(fn);
   }
 }
 
-class Switch implements CaseOperator {
-  dow: DayOfWeek;
-  constructor(dow: DayOfWeek) {
+class Switch<T> implements CaseOperator<T> {
+  dow: T;
+  constructor(dow: T) {
     this.dow = dow;
   }
-  case(dow: DayOfWeek, force: Boolean, fn: () => void): Case {
+  case(dow: T, force: Boolean, fn: () => void): Case<T> {
     return OperatorRepository.case(dow, this.dow, fn);
   }
 }
 
-class Case implements RecoverOperator, DefaultOperator {
-  dow: DayOfWeek;
-  constructor(dow: DayOfWeek) {
+class Case<T> implements RecoverOperator<T>, DefaultOperator<T> {
+  dow: T;
+  constructor(dow: T) {
     this.dow = dow;
   }
-  case(dow: DayOfWeek, force: Boolean, fn: () => void): Case {
+  case(dow: T, force: Boolean, fn: () => void): Case<T> {
     return OperatorRepository.case(dow, this.dow, fn);
   }
-  default(fn: () => void): Default {
+  default(fn: () => void): Default<T> {
     return OperatorRepository.default(fn);
   }
   recover(fn: (e: Error) => {}): Recover {
@@ -90,8 +90,8 @@ class Recover implements EndOperator {
   }
 }
 
-function sw(dow: DayOfWeek): Switch {
-  return new Switch(dow);
+function sw<T>(dow: T): Switch<T> {
+  return new Switch<T>(dow);
 }
 
 sw(DayOfWeek.MONDAY)
