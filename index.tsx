@@ -2,7 +2,7 @@
 import React from "https://dev.jspm.io/react/index.js";
 // @deno-types="https://servestjs.org/@/types/react-dom/server/index.d.ts"
 import ReactDOMServer from "https://dev.jspm.io/react-dom/server.js";
-import { createApp } from "https://servestjs.org/@/mod.ts";
+import { createApp } from "https://servestjs.org/mod.ts";
 
 const app = createApp();
 app.handle("/", async (req) => {
