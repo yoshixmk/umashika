@@ -11,7 +11,7 @@ export enum DayOfWeek {
 type Supplier<R> = () => R;
 type UnaryFunction<E, R> = (err: E) => R;
 
-class OperatorRepository {
+export class OperatorRepository {
   static case<T>(dow: T, otherDow: T, fn: () => void): Case<T> {
     if (dow == otherDow) fn();
     return new Case(dow);
@@ -48,30 +48,30 @@ interface RecoverOperator<T> extends NextOperator<T> {
   recover(fn: (e: Error) => {}): Recover;
 }
 
-class Default<T> implements RecoverOperator<T> {
+export class Default<T> implements RecoverOperator<T> {
   dow!: T;
   recover(fn: (e: Error) => void): Recover {
     return OperatorRepository.recover(fn);
   }
 }
 
-class Switch<T> implements CaseOperator<T> {
+export class Switch<T> implements CaseOperator<T> {
   dow: T;
   constructor(dow: T) {
     this.dow = dow;
   }
   case(dow: T, force: Boolean, fn: () => void): Case<T> {
-    return OperatorRepository.case(dow, this.dow, fn);
+    return OperatorRepository.case(this.dow, dow, fn);
   }
 }
 
-class Case<T> implements RecoverOperator<T>, DefaultOperator<T> {
+export class Case<T> implements RecoverOperator<T>, DefaultOperator<T> {
   dow: T;
   constructor(dow: T) {
     this.dow = dow;
   }
   case(dow: T, force: Boolean, fn: () => void): Case<T> {
-    return OperatorRepository.case(dow, this.dow, fn);
+    return OperatorRepository.case(this.dow, dow, fn);
   }
   default(fn: () => void): Default<T> {
     return OperatorRepository.default(fn);
@@ -83,7 +83,7 @@ class Case<T> implements RecoverOperator<T>, DefaultOperator<T> {
 
 interface EndOperator {}
 
-class Recover implements EndOperator {
+export class Recover implements EndOperator {
   e?: Error;
   constructor(e?: Error) {
     this.e = e;
