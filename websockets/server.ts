@@ -1,7 +1,7 @@
 import {
   Socket,
   serve,
-  acceptWebSocket
+  acceptWebSocket,
 } from "../deps.ts";
 
 // websocket server
