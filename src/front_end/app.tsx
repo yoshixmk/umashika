@@ -19,54 +19,68 @@ declare global {
   }
 }
 
-const App: React.FC = () => {
-  const [count, setCount] = (React as any).useState(0);
-  const [message, setMessage] = (React as any).useState("");
-  const endpoint = "ws://127.0.0.1:8080";
-  const [ws, setWS] = (React as any).useState(new WebSocket(endpoint));
+type Message = {
+  username: string;
+  data: string;
+};
 
-  type Message = {
-    data: string;
-  };
+const App: React.FC = () => {
+  const endpoint = "ws://127.0.0.1:8080";
+  const [ws, setWS]: [WebSocket, (arg: WebSocket) => void] = (React as any)
+    .useState(
+      new WebSocket(endpoint),
+    );
+  const [count, setCount]: [number, (arg: number) => void] = (React as any)
+    .useState(0);
+
+  const [username, setUsername]: [string, (arg: string) => void] =
+    (React as any).useState("");
+
+  const [message, setMessage]: [string, (arg: string) => void] = (React as any)
+    .useState("");
+
   // Messages
-  const [messages, setMessages] = (React as any).useState([]);
-  let messagesLocal: string[] = [];
+  const [messages, setMessages]: [Message[], (arg: Message[]) => void] =
+    (React as any).useState([]);
+  const messagesLocal: Message[] = [];
 
   (React as any).useEffect(() => {
     // if (ws) ws.close()
     // ws = new WebSocket(endpoint)
 
-    ws.addEventListener("open", () => {
+    (ws as any).addEventListener("open", () => {
       console.log("ws connected!");
     });
-    ws.addEventListener("message", (message: MessageEvent) => {
+    (ws as any).addEventListener("message", (message: MessageEvent) => {
       console.log(message.data);
-      messagesLocal = [...messagesLocal, message.data]
-      setMessages(messagesLocal);
+      messagesLocal.push(JSON.parse(message.data) as Message);
+      setMessages([...messagesLocal]);
     });
   }, [ws]);
 
   const handleSendMessageToServer = async () => {
+    const m: Message = { username, data: message };
     setMessage(message);
-    // setMessages([...messages, message]);
-    await ws.send(message);
+    await ws.send(JSON.stringify(m));
   };
 
   return (
     <div>
       <h1>Hello Umashika!</h1>
+      <input
+        type="text"
+        value={username}
+        onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+          setUsername(event.target.value)}
+      />
       <button onClick={() => setCount(count + 1)}>Click the 🦕</button>
-      <p>You clicked the 🦕 {count} times</p>
-      {messages.map((message: Message, index: number) =>
-        <div key={index.toString()}>{message}</div>
-      )}
+      <p>My name is {username} / I clicked the 🦕 {count} times</p>
       <input
         type="text"
         value={message}
         onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
           setMessage(event.target.value)}
-      >
-      </input>
+      />
       <p>{message}</p>
       <button
         onClick={(event: React.MouseEvent<HTMLInputElement>) =>
@@ -74,6 +88,9 @@ const App: React.FC = () => {
       >
         Send 🦕
       </button>
+      {messages.map((message: Message, index: number) =>
+        <div key={index.toString()}>{message.username}: {message.data}</div>
+      )}
     </div>
   );
 };
