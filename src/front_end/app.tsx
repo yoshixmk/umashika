@@ -30,6 +30,7 @@ const App: React.FC = () => {
   };
   // Messages
   const [messages, setMessages] = (React as any).useState([]);
+  let messagesLocal: string[] = [];
 
   (React as any).useEffect(() => {
     // if (ws) ws.close()
@@ -40,13 +41,14 @@ const App: React.FC = () => {
     });
     ws.addEventListener("message", (message: MessageEvent) => {
       console.log(message.data);
-      // setMessages([...messages, message.data]);
+      messagesLocal = [...messagesLocal, message.data]
+      setMessages(messagesLocal);
     });
   }, [ws]);
 
   const handleSendMessageToServer = async () => {
     setMessage(message);
-    setMessages([...messages, message]);
+    // setMessages([...messages, message]);
     await ws.send(message);
   };
 
