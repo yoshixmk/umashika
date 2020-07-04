@@ -19,13 +19,21 @@ declare global {
   }
 }
 
+type Props = {
+  children?: React.ReactNode;
+  wsPort: number;
+  hostname: number;
+};
+
 type Message = {
   username: string;
   message: string;
 };
 
-const App: React.FC = () => {
-  const endpoint = "ws://127.0.0.1:8080";
+const App: React.FC<Props> = (
+  { children, wsPort, hostname }: Readonly<Props>,
+) => {
+  const endpoint = `ws://127.0.0.1:${wsPort}`; // TODO hostname
   const [ws, setWS]: [WebSocket, (arg: WebSocket) => void] = (React as any)
     .useState(
       new WebSocket(endpoint),
