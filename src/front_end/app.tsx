@@ -21,7 +21,7 @@ declare global {
 
 type Message = {
   username: string;
-  data: string;
+  message: string;
 };
 
 const App: React.FC = () => {
@@ -30,8 +30,6 @@ const App: React.FC = () => {
     .useState(
       new WebSocket(endpoint),
     );
-  const [count, setCount]: [number, (arg: number) => void] = (React as any)
-    .useState(0);
 
   const [username, setUsername]: [string, (arg: string) => void] =
     (React as any).useState("");
@@ -59,29 +57,27 @@ const App: React.FC = () => {
   }, [ws]);
 
   const handleSendMessageToServer = async () => {
-    const m: Message = { username, data: message };
+    const m: Message = { username, message };
     setMessage(message);
     await ws.send(JSON.stringify(m));
   };
 
   return (
     <div>
-      <h1>Hello Umashika!</h1>
+      <h1>🦕 Umashika 🦕</h1>
       <input
         type="text"
         value={username}
         onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
           setUsername(event.target.value)}
       />
-      <button onClick={() => setCount(count + 1)}>Click the 🦕</button>
-      <p>My name is {username} / I clicked the 🦕 {count} times</p>
+      <p>My name is {username}</p>
       <input
         type="text"
         value={message}
         onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
           setMessage(event.target.value)}
       />
-      <p>{message}</p>
       <button
         onClick={(event: React.MouseEvent<HTMLInputElement>) =>
           handleSendMessageToServer()}
@@ -89,7 +85,7 @@ const App: React.FC = () => {
         Send 🦕
       </button>
       {messages.map((message: Message, index: number) =>
-        <div key={index.toString()}>{message.username}: {message.data}</div>
+        <div key={index.toString()}>{message.username}: {message.message}</div>
       )}
     </div>
   );
