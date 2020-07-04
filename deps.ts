@@ -1,5 +1,3 @@
-export { Socket } from "https://raw.githubusercontent.com/yoshixmk/transport/master/mod.ts";
-export { serve } from "https://deno.land/std/http/server.ts";
 export {
   acceptWebSocket,
 } from "https://deno.land/std/ws/mod.ts";

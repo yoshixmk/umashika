@@ -25,11 +25,28 @@ const App: React.FC = () => {
   const endpoint = "ws://127.0.0.1:8080";
   const [ws, setWS] = (React as any).useState(new WebSocket(endpoint));
 
-  // ws.on("open", function () {
-  //   console.log("connected");
-  // });
+  type Message = {
+    data: string;
+  };
+  // Messages
+  const [messages, setMessages] = (React as any).useState([]);
+
+  (React as any).useEffect(() => {
+    // if (ws) ws.close()
+    // ws = new WebSocket(endpoint)
+
+    ws.addEventListener("open", () => {
+      console.log("ws connected!");
+    });
+    ws.addEventListener("message", (message: MessageEvent) => {
+      console.log(message.data);
+      // setMessages([...messages, message.data]);
+    });
+  }, [ws]);
+
   const handleSendMessageToServer = async () => {
     setMessage(message);
+    setMessages([...messages, message]);
     await ws.send(message);
   };
 
@@ -38,6 +55,9 @@ const App: React.FC = () => {
       <h1>Hello Umashika!</h1>
       <button onClick={() => setCount(count + 1)}>Click the 🦕</button>
       <p>You clicked the 🦕 {count} times</p>
+      {messages.map((message: Message, index: number) =>
+        <div key={index.toString()}>{message}</div>
+      )}
       <input
         type="text"
         value={message}
@@ -46,7 +66,12 @@ const App: React.FC = () => {
       >
       </input>
       <p>{message}</p>
-      <button onClick={(event: React.MouseEvent<HTMLInputElement>) => handleSendMessageToServer()}>Send 🦕</button>
+      <button
+        onClick={(event: React.MouseEvent<HTMLInputElement>) =>
+          handleSendMessageToServer()}
+      >
+        Send 🦕
+      </button>
     </div>
   );
 };
