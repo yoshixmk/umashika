@@ -33,7 +33,7 @@ type Message = {
 const App: React.FC<Props> = (
   { children, wsPort, hostname }: Readonly<Props>,
 ) => {
-  const endpoint = `ws://127.0.0.1:${wsPort}`; // TODO hostname
+  const endpoint = `ws://${hostname}:${wsPort}`;
   const [ws, setWS]: [WebSocket, (arg: WebSocket) => void] = (React as any)
     .useState(
       new WebSocket(endpoint),
