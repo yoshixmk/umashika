@@ -15,6 +15,7 @@ declare global {
       h1: any;
       p: any;
       input: any;
+      img: any;
     }
   }
 }
@@ -80,6 +81,7 @@ const App: React.FC<Props> = (
           setUsername(event.target.value)}
       />
       <p>My name is {username}</p>
+      <img src="/static/images/eto_uma.png" width="30"></img>
       <input
         type="text"
         value={message}

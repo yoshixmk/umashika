@@ -1,10 +1,13 @@
 import {
   opine,
+  serveStatic,
   React,
   ReactDOMServer,
 } from "./deps.ts";
+import { dirname, join } from "https://deno.land/std@0.60.0/path/mod.ts";
 
 const browserBundlePath = "/browser.js";
+const __dirname = dirname(import.meta.url);
 
 const baseServer = async ({
   appModulePath,
@@ -34,6 +37,8 @@ const baseServer = async ({
   app.use(browserBundlePath, (req, res, next) => {
     res.type("application/javascript").send(js);
   });
+
+  app.use(serveStatic(__dirname));
 
   app.use("/", (req, res, next) => {
     res.type("text/html").send(html);
