@@ -2,13 +2,7 @@
 
 ## Prepare
 - [Deno](https://deno.land/)
-- [Trex](https://nicedoc.io/crewdevio/Trex) (needs Dev)
-
-### for Mac user
-
-```Shell
-brew install deno
-```
+- [Trex](https://nicedoc.io/crewdevio/Trex) (Only needs Development)
 
 ## Umashika
 ```Shell
@@ -16,6 +10,19 @@ $ deno run --allow-net --allow-read --importmap=import_map.json --unstable umash
 ```
 
 Server is going to listen : `http://localhost:3000` and `ws://localhost:8080`
+
+## Development
+### Develop using Trex.
+Download packages from an import_map.json file.
+```Shell
+$ Trex i
+```
+Other install, [how to use](https://github.com/crewdevio/Trex#how-to-use)
+
+### Create lock.json
+```Shell
+$ Trex --lock --importmap umashika.ts
+```
 
 ## Draft rules
 
