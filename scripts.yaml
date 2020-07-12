@@ -1,0 +1,2 @@
+scripts:
+  start: deno run --allow-net --allow-read --importmap=import_map.json --unstable umashika.ts

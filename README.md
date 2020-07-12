@@ -1,12 +1,19 @@
-# umashika
+# Umashika
+[![(Deno)](https://img.shields.io/badge/deno-v1.1.3-green.svg?style=flat-square&logo=deno)](https://deno.land)
+[![vr scripts](https://badges.velociraptor.run/flat.svg)](https://velociraptor.run)
 
 ## Prepare
 - [Deno](https://deno.land/)
+- [Velociraptor](https://github.com/umbopepato/velociraptor) (Optional)
 - [Trex](https://nicedoc.io/crewdevio/Trex) (Only needs Development)
 
-## Umashika
+## Get Started
 ```Shell
-$ deno run --allow-net --allow-read --importmap=import_map.json --unstable umashika.tsx
+$ deno run --allow-net --allow-read --importmap=import_map.json --unstable umashika.ts
+```
+or using vr
+```Shell
+$ vr start
 ```
 
 Server is going to listen : `http://localhost:3000` and `ws://localhost:8080`
