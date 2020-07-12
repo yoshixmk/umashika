@@ -5,7 +5,7 @@ import {
   HTMLInputElement,
   componentWillMount,
 } from "https://dev.jspm.io/react@16.13.1";
-import { WebSocket } from "../../deps.ts";
+import { WebSocket } from "websocket";
 
 declare global {
   namespace JSX {

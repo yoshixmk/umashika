@@ -1,10 +1,8 @@
 # umashika
 
-## Deno Instllation
-
-```Shell
-$ curl -fsSL https://deno.land/x/install/install.sh | sh -s v1.1.1
-```
+## Prepare
+- [Deno](https://deno.land/)
+- [Trex](https://nicedoc.io/crewdevio/Trex) (needs Dev)
 
 ### for Mac user
 
@@ -12,26 +10,12 @@ $ curl -fsSL https://deno.land/x/install/install.sh | sh -s v1.1.1
 brew install deno
 ```
 
-### Umashika With [servest](https://github.com/keroxp/servest) and [transport](https://github.com/yoshixmk/transport)
+## Umashika
 ```Shell
-$ deno run --allow-net umashika.tsx
+$ deno run --allow-net --allow-read --importmap=import_map.json --unstable umashika.tsx
 ```
 
 Server is going to listen : `http://localhost:3000` and `ws://localhost:8080`
-
-If you send the following message using `client.ts`, a response will be returned.
-```Shell
-$ deno run --allow-net websockets/client.ts
-```
-```json:response
-{"route": "UmaShikaRole_Response", "data": "uma"}
-```
-
-If you want to use your favorite websocket client please request below.  
-Server is going to listen: `ws://localhost:8080`  
-```json:request
-{"route":"UmaShikaRole_Request","data":"Please tell me role."}
-```
 
 ## Draft rules
 

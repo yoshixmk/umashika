@@ -1,4 +1,4 @@
-import { WebSocket, WebSocketServer } from "../../deps.ts";
+import { WebSocket, WebSocketServer } from "websocket";
 
 type User = {
   username: string;

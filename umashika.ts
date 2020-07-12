@@ -1,17 +1,17 @@
 import baseServer from "./react-base-server.tsx";
 import { websocketServer } from "./src/websockets/server.ts";
-import args from "https://deno.land/x/args@2.0.2/wrapper.ts";
+import args from "args/wrapper";
 import {
   EarlyExitFlag,
   PartialOption,
-} from "https://deno.land/x/args@2.0.2/flag-types.ts";
+} from "args/flag-types";
 import {
   FiniteNumber,
   Text,
-} from "https://deno.land/x/args@2.0.2/value-types.ts";
+} from "args/value-types";
 import {
   PARSE_FAILURE,
-} from "https://deno.land/x/args@2.0.2/symbols.ts";
+} from "args/symbols";
 
 const DEFAULT_PORT = 5000;
 const WEB_SOCKET_DEFAULT_PORT = 8080;

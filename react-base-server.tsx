@@ -1,10 +1,11 @@
 import {
   opine,
   serveStatic,
-  React,
-  ReactDOMServer,
-} from "./deps.ts";
-import { dirname, join } from "https://deno.land/std@0.60.0/path/mod.ts";
+} from "opine";
+import React from "react";
+import ReactDOMServer from "reactdomserver";
+
+import { dirname, join } from "path/mod.ts";
 
 const browserBundlePath = "/browser.js";
 const __dirname = dirname(import.meta.url);
