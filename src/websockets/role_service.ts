@@ -1,19 +1,20 @@
 import { Roles, Role } from "../models/Roles.ts";
 
 export function decideRoles(userCount: number): Roles {
-  const roles: Roles = [new Role("shika")];
-  if (userCount > 2) {
-    roles.push(new Role("okami"));
-  }
-  if (userCount > 4) {
-    roles.push(new Role("okami"));
-  }
-  if (userCount > 7) {
-    roles.push(new Role("okami"));
-    roles.push(new Role("ushi"));
-  }
-  [...Array(userCount - roles.length)].map(() => roles.push(new Role("uma")));
-  return roles;
+  const roles: Roles = [
+    new Role("shika"),
+    new Role("shika"),
+    new Role("uma"),
+    new Role("uma"),
+    new Role("okami"),
+    new Role("ushi"),
+  ];
+  const result: Roles = [];
+  [...Array(userCount)].forEach(() => {
+    const index = Math.floor(Math.random() * roles.length);
+    result.push(roles[index]);
+  });
+  return result;
 }
 
 export function shuffle<T>([...array]: T[]) {

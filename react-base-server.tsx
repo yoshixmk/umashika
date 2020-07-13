@@ -31,7 +31,7 @@ const baseServer = async ({
   const html =
     `<html><head><script type="module" src="${browserBundlePath}"></script><style>* { font-family: Helvetica; }</style></head><body><div id="react-root">${
       (ReactDOMServer as any).renderToString(
-        <App wsPort={wsPort} hostname={hostname} />,
+        <App isServer={true} wsPort={wsPort} hostname={hostname} />,
       )
     }</div></body></html>`;
 

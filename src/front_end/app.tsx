@@ -23,6 +23,7 @@ declare global {
 
 type Props = {
   children?: React.ReactNode;
+  isServer: boolean;
   wsPort: number;
   hostname: number;
 };
@@ -32,12 +33,20 @@ type Message = {
   message: string;
 };
 
+let websocket: WebSocket;
+function wsFactory(endpoint: string) {
+  if (websocket === undefined) {
+    websocket = new WebSocket(endpoint);
+  }
+  return websocket;
+}
 const App: React.FC<Props> = (
-  { children, wsPort, hostname }: Readonly<Props>,
+  { children, isServer, wsPort, hostname }: Readonly<Props>,
 ) => {
   const endpoint = `ws://${hostname}:${wsPort}`;
-  const [ws, setWS]: [WebSocket, (arg: WebSocket) => void] = (React as any)
-    .useState(new WebSocket(endpoint));
+  // const [ws, setWS]: [WebSocket, (arg: WebSocket) => void] = (React as any)
+  //   .useState(new WebSocket(endpoint));
+  const ws = wsFactory(endpoint);
 
   const [username, setUsername]: [string, (arg: string) => void] =
     (React as any).useState("");
@@ -54,29 +63,24 @@ const App: React.FC<Props> = (
     .useState("uma");
 
   (React as any).useEffect(() => {
-    // if (ws) (ws as any).close();
-    // setWS(new WebSocket(endpoint));
-    (ws as any).addEventListener("open", () => {
-      console.log("ws connected!");
-    });
-    (ws as any).addEventListener("message", (message: MessageEvent) => {
-      console.log(message.data);
-      const m = (JSON.parse(message.data) as Message);
-      if (m.username == "umashika") {
-        setRole(m.message as RoleType);
-      } else {
-        messagesLocal.push(m);
-        setMessages([...messagesLocal]);
-      }
-    });
-  }, [ws]);
+    if (!isServer) {
+      (ws as any).addEventListener("open", () => {
+        console.log("ws connected!");
+      });
+      (ws as any).addEventListener("message", (message: MessageEvent) => {
+        console.log(message.data);
+        const m = (JSON.parse(message.data) as Message);
+        if (m.username == "umashika") {
+          setRole(m.message as RoleType);
+        } else {
+          messagesLocal.push(m);
+          setMessages([...messagesLocal]);
+        }
+      });
+    }
+  }, []);
 
   const handleSendMessageToServer = async () => {
-    const m: Message = { username, message };
-    setMessage(message);
-    await ws.send(JSON.stringify(m));
-  };
-  const handleSendUmashikaToServer = async () => {
     const m: Message = { username, message };
     setMessage(message);
     await ws.send(JSON.stringify(m));
