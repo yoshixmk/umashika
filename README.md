@@ -16,7 +16,7 @@ or using vr
 $ vr start
 ```
 
-Server is going to listen : `http://localhost:3000` and `ws://localhost:8080`
+Server is going to listen : `http://localhost:5000` and `ws://localhost:8080`
 
 ## Development
 ### Develop using Trex.
